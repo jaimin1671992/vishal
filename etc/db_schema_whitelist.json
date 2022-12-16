@@ -1,0 +1,54 @@
+{
+    "referral_code": {
+        "column": {
+            "rec_id": true,
+            "store_id": true,
+            "customer_id": true,
+            "referral_code": true,
+            "code_used": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "referral_used": {
+        "column": {
+            "rec_id": true,
+            "store_id": true,
+            "customer_id": true,
+            "referrer_id": true,
+            "order_id": true,
+            "referral_code": true,
+            "used_date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "referral_earned": {
+        "column": {
+            "rec_id": true,
+            "store_id": true,
+            "customer_id": true,
+            "referrer_id": true,
+            "order_id": true,
+            "earned_code": true,
+            "used_date": true,
+            "expairary_date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "referral_quote_coupon": {
+        "column": {
+            "rec_id": true,
+            "store_id": true,
+            "referral_code": true,
+            "quote_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

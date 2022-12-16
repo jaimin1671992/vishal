@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_before">
+        <observer name="tvape_referralprogram_order_placed_before" instance="Tvape\ReferralProgram\Observer\Frontend\OrderPlaceBefore" />
+    </event>
+	
+	<event name="sales_order_place_after">
+        <observer name="tvape_referralprogram_order_placed_after" instance="Tvape\ReferralProgram\Observer\Frontend\OrderPlaceAfter" />
+    </event>
+	
+	<event name="sales_order_invoice_save_after">
+        <observer name="tvape_referralprogram_invoice_save_after" instance="Tvape\ReferralProgram\Observer\Frontend\InvoiceSaveAfter" />
+    </event>
+	
+</config>

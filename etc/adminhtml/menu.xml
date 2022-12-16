@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tvape_ReferralProgram::referral_program" title="Tvape Referral Program" translate="title" module="Tvape_ReferralProgram" parent="Magento_Backend::marketing" sortOrder="100" resource="Tvape_ReferralProgram::referral_program"/>
+		
+        <add id="Tvape_ReferralProgram::referral_customers" title="Customers" translate="title" sortOrder="20" module="Tvape_ReferralProgram" parent="Tvape_ReferralProgram::referral_program" action="referralprogram/customer/index" dependsOnModule="Tvape_ReferralProgram" resource="Tvape_ReferralProgram::referral_program_customers"/>
+        
+		<add id="Tvape_ReferralProgram::referral_used" title="Referral Used" translate="title" sortOrder="20" module="Tvape_ReferralProgram" parent="Tvape_ReferralProgram::referral_program" action="referralprogram/used/" dependsOnModule="Tvape_ReferralProgram" resource="Tvape_ReferralProgram::referral_used"/>
+		
+		<add id="Tvape_ReferralProgram::referral_earned" title="Referral Earned" translate="title" sortOrder="20" module="Tvape_ReferralProgram" parent="Tvape_ReferralProgram::referral_program" action="referralprogram/earned/" dependsOnModule="Tvape_ReferralProgram" resource="Tvape_ReferralProgram::referral_earned"/>
+    </menu>
+</config>

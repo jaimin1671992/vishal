@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_before">
+        <observer name="tvape_referralprogram_order_placed_before" instance="Tvape\ReferralProgram\Observer\Frontend\OrderPlaceBefore" />
+    </event>
+	
+	<event name="sales_order_place_after">
+        <observer name="tvape_referralprogram_order_placed_after" instance="Tvape\ReferralProgram\Observer\Frontend\OrderPlaceAfter" />
+    </event>
+	
+	<!--<event name="sales_order_invoice_save_after">
+        <observer name="tvape_referralprogram_invoice_save_after" instance="Tvape\ReferralProgram\Observer\Frontend\InvoiceSaveAfter" />
+    </event>-->
+	
+	<event name="sales_model_service_quote_submit_before">
+        <observer name="tvape_add_referraldiscount_to_order" instance="Tvape\ReferralProgram\Observer\AddReferralDiscountToOrderObserver" />
+    </event>
+	
+	<event name="sales_order_save_after">
+        <observer name="tvape_referralprogram_on_order_completes" instance="Tvape\ReferralProgram\Observer\Frontend\OnOrderCompletes" />
+    </event>
+	
+	<event name="referral_program_order_place_before">
+        <observer name="tvape_referralprogram_on_guesttocustomer" instance="Tvape\ReferralProgram\Observer\Frontend\OrderSucessAfter" />
+    </event>
+	
+	<event name="layout_generate_blocks_after">
+        <observer name="referralremoveblock" instance="Tvape\ReferralProgram\Observer\Removeblock" shared="false" />
+    </event>
+	
+	<!--<event name="controller_action_predispatch_checkout_index_index">
+        <observer name="referral_checkcout_page_validate" instance="Tvape\ReferralProgram\Observer\CheckShoppingCartObserver" />
+    </event>-->
+	
+</config>

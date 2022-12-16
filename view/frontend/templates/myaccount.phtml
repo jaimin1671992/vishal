@@ -1,0 +1,171 @@
+<?php
+	$helper = $this->helper("Tvape\ReferralProgram\Helper\Data");
+	//$emailHelper = $this->helper("Tvape\ReferralProgram\Helper\Email");
+	//$emailHelper->sendReferralWelcomeEmailTest();
+	//echo $helper->getReferralTitleString();
+	$referralAmt = $helper->getReferralDiscountAmt();
+	$commitionAmt = $helper->getCommitionAmt();
+	$earnedCode = '';
+	$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+	
+	//echo "TEST->".$helper->getReferralDiscountCode();
+	
+?>
+
+<div class="block block-dashboard-info">
+	<!--<div class="block-title">
+		<strong><?php /*echo __("Referral Program")*/ ?></strong>
+	</div>-->
+	<div class="block-content">
+		<div class="box box-information">
+			<?php /* <strong class="box-title"><?php echo __("Referral Information") ?></strong> */ ?>
+			<?php if($block->isEnrolled()){ ?>
+				<p>
+					<?php echo __("Referral code") ?> : <strong><?php echo $block->getReferralCode(); ?></strong>
+					<a href="#" id="open_share_popup"><?php echo __("Share") ?></a>
+				</p>
+				<p><?php echo __("Referral code used %1/5 times", $block->getUsed() ) ?></p>
+				<?php /* <p><?php echo __("Referral Code can be used 5 times max") ?></p> */ ?>
+			<?php } else { ?>
+			<form action="<?php echo $this->getUrl('referralprogram/account/enroll'); ?>" method="POST">
+				<?php echo $block->getBlockHtml('formkey')?>
+				<button type="submit" role="add-address" title="Add New Address" class="action primary add">
+					<span><?php echo __("Enroll now") ?></span>
+				</button>
+			</form>
+			<?php } ?>
+		</div>
+	</div>
+	<div class="block-content"><br/></div>
+	<?php $earnedCoupons = $block->getEarnedCoupons(); ?>
+	<?php if(count($earnedCoupons)){ ?>
+	<div class="block block-dashboard-orders">
+		<div class="block-title order">
+			<strong><?php echo __("Earned store credit code") ?></strong>
+		</div>
+		<div class="block-content">
+			<div class="table-wrapper orders-recent">
+				<table class="data table table-order-items recent">
+					<thead>
+						<tr>
+							<th scope="col" class="col id"><?php echo __("Order") ?> #</th>
+							<th scope="col" class="col "><?php echo __("Date") ?></th>
+							<!--<th scope="col" class="col "><?php echo __("Order by") ?></th>-->
+							<th scope="col" class="col "><?php echo __("Discount code") ?></th>
+							<th scope="col" class="col "><?php echo __("Store credit code") ?></th>
+							<th scope="col" class="col "><?php echo __("Use before") ?></th>
+							<th scope="col" class="col "><?php echo __("Is used") ?></th>
+						</tr>
+						<?php foreach($earnedCoupons as $earnedcoupon){ ?>
+							<?php $order = $block->getOrderById($earnedcoupon->getOrderId()); ?>
+							<?php 
+								$earnedCode = $earnedcoupon->getEarnedCode();
+								if($earnedCode == ""){
+									$earnedCode = __("Available after order completes");
+								}
+							?>
+							<tr>
+								<td class="col"><?php echo $order->getIncrementId() ?></td>
+								<td class="col"><?php echo date("Y-m-d", strtotime($order->getCreatedAt())); ?></td>
+								<!--<td class="col"><?php echo $order->getCustomerName() ?></td>-->
+								<td class="col"><?php echo $earnedCode ?></td>
+								<td class="col"><?php echo $priceHelper->currency($earnedcoupon->getCommission(), true, false); ?></td>
+								<td class="col"><?php echo date("Y-m-d", strtotime($earnedcoupon->getExpairaryDate())); ?></td>
+								<td class="col"><?php echo $earnedcoupon->getIsUsed()==1?__("Yes"):__("No"); ?></td>
+							</tr>
+						<?php } ?>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+</div>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                modalClass: 'popup-custom-modal',
+            };
+			$("#open_share_popup").click(function(){
+				var popup = modal(options, $('#referral_share'));
+				$(".popup-custom-modal-wrap").modal("openModal");
+			});
+			$('.popup-custom-modal-wrap .closebtn').click(function(){
+				$("#referral_share").modal("closeModal"); 
+			});
+		}
+    );
+</script>
+
+<div id="referral_share" style="display:none;" class="modal-dialog modal-sm popup-custom-modal-wrap without-text1" role="dialog" >
+    <div class="modal-content">
+        <!-- Modal body -->
+        <div class="modal-body">
+			<i class="closebtn">X</i>
+            <div class="popup-text">
+				<span class="welcome"><?php echo __('Refer & Earn') . $block->getOrderIncrementId(); ?>!</span>
+				<span class="heading"><?php echo __('Give '.$referralAmt.', get '.$commitionAmt.'!'); ?></span>
+				<span class="msg"><?php echo __('Give friends '.$referralAmt.' off their first order and you\'ll get '.$commitionAmt.' when you make a purchase.'); ?></span>
+			</div>
+            <div class="">
+				<form action="<?php echo $this->getUrl('referralprogram/account/share'); ?>" method="post" >
+					<div class="popup-cont">
+						<ul class="popup-social">
+							<li><a href="#" title="Email"><i class="fa fa-envelope-o"></i></a></li>
+							<?php /*<li><a id="shareBtn" href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="https://twitter.com/intent/tweet?url=https://stonersguardian.com&text=<?php echo $block->getReferralCode(); ?>&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false" title="Twitter"><i class="fa fa-twitter"></i></a></li> */ ?>
+						</ul>
+						<div class="fieldset">
+							<p><b><?php echo __("Email will be sent from:") ." " . $block->getCustomerEmail(); ?></b></p>
+							<textarea name="email_ids"  value="" placeholder="<?php echo __("Email Addresses") ?>:" ></textarea>
+							<p><?php echo __("Email addresses comma separated.") ?></p>
+						</div>
+					</div>
+					<button type="submit" role="add-address" title="<?php echo __("Share referral coupon") ?>" class="action primary add popup-custom-submit">
+						<span><?php echo __("Share") ?></span>
+					</button>
+				</form>
+			</div>
+        </div>
+    </div>
+</div>
+<?php /*
+<div id="share_scripts">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+document.getElementById('shareBtn').onclick = function() {
+  FB.ui({
+    display: 'popup',
+    method: 'share',
+    href: 'https://stonersguardian.com/',
+  }, function(response){});
+}
+</script>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-638782c06b7f5fab"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
+<script>
+const buttons = document.querySelector('.addthis_inline_share_toolbox')
+buttons.setAttribute('data-url','https://stonersguardian.com/shipping');
+buttons.setAttribute('data-title', "Your friend is inviting you to get some discount. Use this referral code: <?php echo $block->getReferralCode(); ?>");
+</script> */ ?>

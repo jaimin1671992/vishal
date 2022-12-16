@@ -1,0 +1,141 @@
+<?php
+	$referralInformation = $block->getData("view_model");
+	$giftcardCoupons = $block->getData("giftcard_coupons");
+
+	
+?>
+<div class="block discount" id="block-discount" >
+    <div class="content"  aria-labelledby="block-discount-heading">
+        <form id="discount-coupon-form"
+              action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/couponPost') ?>"
+              method="post"
+              data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
+                                               "removeCouponSelector": "#remove-coupon",
+                                               "applyButton": "button.action.apply",
+                                               "cancelButton": "button.action.cancel"}}'>
+            <div class="fieldset coupon<?= strlen($block->getCouponCode()) ? ' applied' : '' ?>">
+                <input type="hidden" name="remove" id="remove-coupon" value="0" />
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input-text" id="coupon_code" name="coupon_code" value="<?= $block->escapeHtml($block->getCouponCode()) ?>" placeholder="<?= $block->escapeHtml(__('Apply a promo code')) ?>" />
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <?php if (!strlen($block->getCouponCode())): ?>
+                    <div class="primary">
+                        <button class="action apply primary" type="button" value="<?= /* @escapeNotVerified */ __('Apply Discount') ?>">
+                            <span><?= /* @escapeNotVerified */ __('Apply') ?></span>
+                        </button>
+                    </div>
+                    <?php else: ?>
+                        <div class="primary">
+                            <button  type="button" class="action cancel primary" value="<?= /* @escapeNotVerified */ __('Cancel Coupon') ?>"><span><?= /* @escapeNotVerified */ __('Cancel Coupon') ?></span></button>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<?php
+
+if($referralInformation->canShowCoupons()){
+$earnedCoupons = $referralInformation->getEarnedCoupons();
+$appliedCoupons = $referralInformation->getAppliedCodes();
+?>
+<div class="referral-earned-coupons">
+	<?php if(count($earnedCoupons)){ ?>
+		<h4 style="margin-bottom:5px;"><?php echo __("Referral store credit coupons") ?></h4>
+	<?php } ?>
+	<?php foreach($earnedCoupons as $earnedCoupon){ ?>
+		<?php $couponCode = $earnedCoupon->getEarnedCode(); ?>
+		<div class="ref_coupon <?php if(in_array($couponCode, $appliedCoupons)){ echo 'applied'; } ?>">
+			<span><?php echo $couponCode; ?></span>
+			<?php if(!in_array($couponCode, $appliedCoupons)){ ?>
+			<a href="<?php echo $this->getUrl("referralprogram/referrer/addcoupon", ['redeem_code'=>$couponCode]) ?>">
+				<?php echo __("Apply") ?>
+			</a>
+			<?php } else { ?>
+			<a href="<?php echo $this->getUrl("referralprogram/referrer/removecoupon", ['redeem_code'=>$couponCode]) ?>">
+				<?php echo __("Remove") ?>
+			</a>
+			<?php } ?>
+		</div>
+	<?php } ?>
+</div>
+<?php } ?>
+
+<?php
+if($giftcardCoupons->canShowCoupons()){
+$earnedCoupons = $giftcardCoupons->getUnusedGiftcardCoupons();
+//$appliedCoupons = $referralInformation->getAppliedCodes();
+?>
+<div class="referral-earned-coupons">
+	<?php if(count($earnedCoupons)){ ?>
+		<h4 style="margin-bottom:5px;"><?php echo __("Available Giftcards") ?></h4>
+	<?php } ?>
+	<?php foreach($earnedCoupons as $earnedCoupon){ ?>
+		<?php $couponCode = $earnedCoupon->getGiftCode(); ?>
+		<div class="ref_coupon <?php if(in_array($couponCode, $appliedCoupons)){ echo 'applied'; } ?>">
+			<span><?php echo $couponCode; ?></span>
+			<?php if(!in_array($couponCode, $appliedCoupons)){ ?>
+			<a href="<?php echo $this->getUrl("referralprogram/referrer/addcoupon", ['redeem_code'=>$couponCode, 'gift_card'=>'1']) ?>">
+				<?php echo __("Apply") ?>
+			</a>
+			<?php } else { ?>
+			<a href="<?php echo $this->getUrl("referralprogram/referrer/removecoupon", ['redeem_code'=>$couponCode, 'gift_card'=>'1']) ?>">
+				<?php echo __("Remove") ?>
+			</a>
+			<?php } ?>
+		</div>
+	<?php } ?>
+</div>
+<?php } ?>
+<style>
+	/*.ref_coupon {
+		background-color: #e5efe5;
+		margin-bottom: 10px;
+		padding: 10px;
+		color: #006400;
+	}
+	.ref_coupon.applied {
+		background-color: #006400;
+		color: #e5efe5;
+	}
+	.ref_coupon.applied a {
+		color: #e5efe5;
+	}
+	.ref_coupon a {
+		float: right;
+	}*/
+
+	.ref_coupon {
+		border: 1px solid #ddd;
+		margin-bottom: 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.ref_coupon span {
+		padding-left: 10px;
+		word-wrap: anywhere;
+		line-height: 1;
+	}
+	.ref_coupon a {
+		min-width: 75px;
+		/*min-width: 147px;
+		border: 1px solid #ccc;*/
+		background-color: #eee;
+		padding: 12px 0;
+		display: block;
+		text-align: center;
+		text-transform: uppercase;
+		line-height: 1;
+	}
+	.ref_coupon a:hover {
+		background-color: #e1e1e1;
+		color: #292929;
+	}
+	.messages .message{ display:none; }
+	.messages .message:last-child{ display:block; }
+</style>

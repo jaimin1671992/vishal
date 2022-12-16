@@ -1,0 +1,22 @@
+<!--@subject {{trans "%customerName invited you to get %refAmt off on Tvape" customerName=$customerName refAmt=$refAmt}} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+
+	<tr>
+		<td style="padding: 10px 0;">{{trans 'Hey! Get 10% OFF at <a style="color: #6fc500;" href="%baseUrl">Tvape</a>, use my referral code <b>%templateVar</b> to get %refAmt off on your first purchase. Referral code must be added to the “Apply a Promo Code” field on the checkout page.' baseUrl=$baseUrl templateVar=$templateVar refAmt=$refAmt |raw}}</td>
+	</tr>
+	<tr>
+		<td style="padding: 5px 0 0;"><b>{{trans "Referral Code:"}}</b> {{var templateVar}}</td>
+	</tr>
+	<tr>
+		<td style="padding: 10px 0;">
+			<a style="color: #6fc500;" href="{{config path="web/secure/base_url"}}referral-program/">{{trans "Terms & Conditions"}}</a>
+		</td>
+	</tr>
+</table>
+</td>
+</tr>
+<tr>
+	{{template config_path="design/email/footer_template"}}
+</tr>
+</table>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+		<section id="tvape_referralprogram" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Referral Program</label>
+            <tab>tvape_configuration</tab>
+            <resource>Tvape_ReferralProgram::tvape_referralprogram_config</resource>
+			<group id="referralprogram_configuration" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Referral Program</label>
+				<field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="store_address" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Store Address for Email Footer</label>
+                </field>
+				<field id="template" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Share Coupon Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="ordertemplate" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Welcome Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="earnedemail" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Earned Coupon Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="couponused" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Earned Coupon Used Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="discount_type" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+				   <label>Discount Type</label>        
+				   <source_model>Tvape\ReferralProgram\Model\Config\Source\DiscountType</source_model> 
+				</field>
+				<field id="referral_earned" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Referral Earning per coupon used.</label>
+                </field>
+				<field id="referral_rule" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+				   <label>Select Referral Discount Rule</label>        
+				   <source_model>Tvape\ReferralProgram\Model\Config\Ruleselector</source_model> 
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="save_referraldiscount_in_quote" type="Tvape\ReferralProgram\Plugin\Checkout\Model\ShippingInformationManagement" sortOrder="1"/>
+    </type>
+	
+	<!--<type name="Tvape\ReferralProgram\Ui\DataProvider\CustomerDataProvider">
+		<plugin name="referralprogram_customer_grid" type="Tvape\ReferralProgram\Plugin\Adminhtml\AddCustomerGridDataProvider"/>
+	</type>-->
+	
+	<type name="Magento\Variable\Model\Config\Structure\AvailableVariables">
+        <arguments>
+            <argument name="configPaths" xsi:type="array">
+                <item name="tvape_referralprogram/referralprogram_configuration" xsi:type="array">
+                    <item name="tvape_referralprogram/referralprogram_configuration/store_address" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+	
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="tvape_referralprogram_customer_listing_data_source" xsi:type="string">TvapeReferralprogramCustomerCollection</item>
+			</argument>
+		</arguments>
+	</type>
+	<virtualType name="TvapeReferralprogramCustomerCollection" type="Tvape\ReferralProgram\Ui\DataProvider\Customer\Listing\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">referral_code</argument>
+			<argument name="resourceModel" xsi:type="string">Tvape\ReferralProgram\Model\ResourceModel\Referral</argument>
+		</arguments>
+	</virtualType>
+	
+	
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="tvape_referralprogram_used_listing_data_source" xsi:type="string">TvapeReferralprogramUsedCollection</item>
+			</argument>
+		</arguments>
+	</type>
+	<virtualType name="TvapeReferralprogramUsedCollection" type="Tvape\ReferralProgram\Ui\DataProvider\Used\Listing\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">referral_used</argument>
+            <argument name="resourceModel" xsi:type="string">Tvape\ReferralProgram\Model\ResourceModel\Used</argument>
+		</arguments>
+	</virtualType>
+	
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="tvape_referralprogram_earned_listing_data_source" xsi:type="string">TvapeReferralprogramEarnedCollection</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<virtualType name="TvapeReferralprogramEarnedCollection" type="Tvape\ReferralProgram\Ui\DataProvider\Earned\Listing\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">referral_earned</argument>
+			<argument name="resourceModel" xsi:type="string">Tvape\ReferralProgram\Model\ResourceModel\Earned</argument>
+		</arguments>
+	</virtualType>
+</config>

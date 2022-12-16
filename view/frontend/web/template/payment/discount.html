@@ -1,0 +1,88 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- <div class="payment-option _collapsible opc-payment-additional discount-code"
+     data-bind="mageInit: {'collapsible':{'openedState': '_active', 'active': true}}"> -->
+
+     <div class="payment-option _collapsible opc-payment-additional discount-code">
+
+        <!-- <div class="payment-option-title field choice" data-role="title">
+            <span class="action action-toggle">
+                 ko i18n: 'Apply Discount Code'--><!-- /ko 
+            </span>
+        </div> --> 
+    <div class="payment-option-content" data-role="content" style="display: block;">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <form class="form form-discount" id="discount-form">
+            <div class="payment-option-inner">
+                <div class="field">
+                    <label class="label" for="discount-code">
+                        <span data-bind="i18n: 'Enter discount code'"></span>
+                    </label>
+                    <div class="control">
+                        <input class="input-text"
+                               type="text"
+                               id="discount-code"
+                               name="discount_code"
+                               data-validate="{'required-entry':true}"
+                               data-bind="value: couponCode, attr:{placeholder: $t('Enter discount code')}, visible:referralCodeVisible()" />
+                    </div>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <!-- ko ifnot: isApplied() -->
+                        <button class="action action-apply" type="submit" data-bind="'value': $t('Apply Discount'), click: apply">
+                            <span><!-- ko i18n: 'Apply Discount'--><!-- /ko --></span>
+                        </button>
+                    <!-- /ko -->
+                    <!-- ko if: isApplied() -->
+                        <button class="action action-cancel" type="submit" data-bind="'value': $t('Cancel'), click: cancel">
+                            <span><!-- ko i18n: 'Cancel coupon'--><!-- /ko --></span>
+                        </button>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </form>
+    </div>
+	<div id="earned_coupons" data-bind="visible: getAllReferralCoupons()">
+		
+	</div>
+</div>
+<style>
+	#earned_coupons ul { padding:0px; }
+    #earned_coupons li {
+    border: 1px solid #ddd;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    #earned_coupons span {
+    padding-left: 10px;
+    word-wrap: anywhere;
+    line-height: 1;
+    }
+    #earned_coupons a {
+    min-width: 75px;
+    /*min-width: 147px;
+    border: 1px solid #ccc;*/
+    background-color: #eee;
+    padding: 12px 0;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
+    cursor: pointer;
+    }
+	#earned_coupons a:hover {
+		background-color: #e1e1e1;
+		color: #292929;
+	}
+    
+</style>

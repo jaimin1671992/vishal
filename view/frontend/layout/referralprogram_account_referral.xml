@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+      <head>
+        <css src="Tvape_ReferralProgram::css/popup_green.css"/>
+        <css src="Tvape_ReferralProgram::css/referral.css"/>
+      </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Tvape\ReferralProgram\Block\Referral" name="tvape_referral_program_myaccount" template="Tvape_ReferralProgram::myaccount.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

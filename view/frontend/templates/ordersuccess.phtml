@@ -1,0 +1,116 @@
+<?php
+	//if($referralCode = $block->getReferralCode()){
+		$referralCode='';
+	$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+	$referralHelper = $this->helper('Tvape\ReferralProgram\Helper\Data');
+	if($referralHelper->isModuleEnabled()){
+	$orderObject = $referralHelper->getOrderFromId();
+	
+	$discountAmount = $referralHelper->getEarnedDiscountAmount();
+	$referralAmt = $referralHelper->getReferralDiscountAmt();
+	$commitionAmt = $referralHelper->getCommitionAmt();
+?>
+<div id="referral-response-text"></div>
+<div>
+<!--<p><?php echo __("You are enrolled with Tvape Referral Program.") ?></p>
+<p><?php echo __("Your referral code is ") . $referralCode ?></p>
+<p><a href="#" id="open_share_popup"><?php echo __("Share") ?></a> <?php echo __(" it with your friends!") ?></p>-->
+</div>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                modalClass: 'popup-custom-modal',
+            };
+			$(document).ready(function(){
+				var popup = modal(options, $('#referral_share'));
+				$("#referral_share").modal("openModal");
+			});
+			$('.popup-custom-modal-wrap .closebtn').click(function(){
+				$("#referral_share").modal("closeModal"); 
+			});
+		}
+    );
+</script>
+<div id="referral_share" style="display:none;" class="modal-dialog popup-custom-modal-wrap" role="dialog" >
+    <div class="modal-content">
+        <!-- Modal body -->
+        <div class="modal-body">
+			<i class="closebtn">X</i>
+            <div class="popup-text">
+				<span class="welcome"><?php echo __('Thank you for your order ') . $block->getOrderIncrementId(); ?>!</span>
+				<span class="heading"><?php echo __('Give '.$referralAmt.', get ') . $commitionAmt; ?>!</span>
+				<span class="msg"><?php echo __('Give friends '.$referralAmt.' off their first order and you\'ll get '.$commitionAmt.' of their purchase in store credit code.'); ?></span>
+			</div>
+			
+			<form action="<?php echo $this->getUrl('referralprogram/checkout/share'); ?>" method="post" >
+				<?php if($orderObject){ ?>
+					<input type="hidden" value="<?php  echo $orderObject->getId(); ?>" name="order_id" />
+				<?php } ?>
+				<div class="popup-cont">
+					<ul class="popup-social">
+                        <li>
+                            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                            <div class="addthis_inline_share_toolbox"></div>
+                        </li>
+<!--						<li><a href="#" title="Email"><i class="fa fa-envelope-o"></i></a></li>-->
+						<!--li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li-->
+					</ul>
+					<div class="fieldset">
+						<span><?php echo __("Email will be sent from") ?>: <?php echo $orderObject->getCustomerEmail(); ?></span>
+						<input type="text" id="referral_email_ids" name="email_ids" value="" placeholder="To:" />
+						<!--<input type="text" name="send_seubject" value="" placeholder="Subject:" />
+						<textarea name="send_note" size="20" placeholder="Note:" ></textarea>-->
+					</div>
+				</div>
+				<button type="button" id="referral-email-sent-button" role="add-address" title="<?php echo __("Share referral coupon") ?>" class="action primary add popup-custom-submit">
+					<span><?php echo __("Send Email1") ?></span>
+				</button>
+			</form>
+        </div>
+    </div>
+</div>
+<?php //} ?>
+
+
+<script>
+    require(['jquery','Magento_Ui/js/modal/modal','Magento_SalesRule/js/model/payment/discount-messages'],
+		function($, modal, messageContainer){
+		$('#referral-email-sent-button').click(function(){
+			var emails = $("#referral_email_ids").val();
+			$.ajax({
+				url: "<?php echo $this->getUrl('referralprogram/checkout/share'); ?>",
+				type: "POST",
+				data: {'email_ids':emails, 'order_id':'<?php  echo $orderObject->getId(); ?>'}, 
+			}).done(function (data) {
+				$("#referral_share").modal("closeModal");
+				$("#referral-response-text").html(data);
+			});
+		});
+	});
+</script>
+
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-638782c06b7f5fab"></script>
+
+<script>
+    const buttons = document.querySelector('.addthis_inline_share_toolbox')
+    buttons.setAttribute('data-url','https://stonersguardian.com/shipping');
+    //buttons.setAttribute('data-title', "Your friend is inviting you to get some discount. Use this referral code: <?php //echo $block->getReferralCode(); ?>//");
+    buttons.setAttribute('data-title', "Hey! Get 10% OFF at https://stonersguardian.com. Use my code: \"<?php echo $block->getReferralCode(); ?>\" to get 10% off on your first purchase. Referral code must be added to the “Apply a Promo Code” field on the checkout page. T&C:");
+</script>
+	<?php } ?>

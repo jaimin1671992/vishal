@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <totals>
+        <total name="referral_discount">
+            <title translate="true">Referral Discount</title>
+            <source_field>referral_discount</source_field>
+            <model>Tvape\ReferralProgram\Model\Sales\Pdf\ReferralDiscount</model>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>25</sort_order>
+        </total>
+    </totals>
+</config>

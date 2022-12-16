@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\Controller\Cart\CouponPost" type="Tvape\ReferralProgram\Controller\Cart\CouponPost" />
+	<!--<preference for="Magento\SalesRule\Model\Quote\Discount" type="Tvape\MultiCoupon\Model\Quote\Discount" />-->
+	<type name="Magento\Checkout\Block\Cart\Coupon">
+        <plugin name="tvape_referralprogram_cart_coupon_block_aftergetcoupon"
+                type="Tvape\ReferralProgram\Plugin\Block\Checkout\Coupon" sortOrder="10" />
+    </type>
+	
+	
+	
+	<type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="checkout_ReferralProgram_block" xsi:type="object">Tvape\ReferralProgram\Model\ReferralDiscountConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

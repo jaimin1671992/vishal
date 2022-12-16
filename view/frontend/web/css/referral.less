@@ -1,0 +1,87 @@
+.account{
+    .block-content{
+        .box-information{
+            width: 100% !important;
+            margin-top: 10px;
+            .box-title{
+                padding-top: 10px!important;
+            }
+        }
+        #open_share_popup{
+            i{
+                font-size: 30px;
+                vertical-align: middle;
+                margin-left: 5px;
+                &:hover{
+                    &:before{
+                        color: #6fc500;
+                    }
+                }
+            }
+        }
+        
+    }
+}
+.block-dashboard-orders{
+    .block-title{
+        &.order{
+            margin-bottom: 0!important;
+            border-bottom: none!important;
+        }
+    }
+}
+@media (min-width: 640px){
+    .orders-recent{
+        .table{
+            thead,
+            tbody{
+                th,
+                td {
+                    border-top: 1px solid #ccc;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 639px){
+    .orders-recent{
+        border-top: 1px solid #ccc;
+        border-bottom: none;
+        .table{
+            border: none;
+            display: block;
+            thead,
+            tbody{
+                display: block;
+                tr{
+                    display: block;
+                }
+                th{
+                    display: none;
+                }
+                td {
+                    border-bottom: none;
+                    display: block;
+                    padding: 5px 10px;
+                    &[data-th]{
+                        &:before
+                        {
+                            padding-right: 10px;
+                            content: attr(data-th) ': ';
+                            display: inline-block;
+                            color: #111;
+                            font-weight: 700;
+                        }
+                    }
+                    &:first-child {
+                        padding-top: 15px;
+                    }
+                    &:last-child {
+                        border-bottom: 1px solid #ccc;
+                        padding-bottom: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

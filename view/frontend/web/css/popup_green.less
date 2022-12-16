@@ -1,0 +1,391 @@
+@warp-width: 650px;
+.referral-bottom-share-icons{
+    a{
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+}
+.popup-custom-modal{
+    .modal-inner-wrap {
+        width: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto;
+        height: auto !important;
+        max-height: 100% !important;
+        background: transparent;
+        box-shadow: none;
+        color: black;
+        .modal-content {
+            overflow: hidden;
+            padding: 0;
+            text-align: center;margin: 0 auto;
+        }
+        header,
+        footer{
+            display: none;
+        }
+    }
+}
+.popup-custom-modal-wrap {
+    margin: 25px auto 0; 
+    background-color:#fff;  
+    background-image: url('../images/Popup_ribbon.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: contain;
+    padding-top: 45px;
+    max-width: 800px;
+    position: relative;
+    .modal-content{
+        background-image: url('../images/Popup_stripe.jpg');
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: contain;
+        padding-bottom: 25px !important;
+    }
+    .modal-body {
+        padding: 5px 45px 10px;
+        .closebtn {
+            font-style: normal;
+            font-size: 18px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #e1e1e1;
+            border: 1px solid #ccc;
+            width: 35px;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+    }
+    .popup-text{
+        span {
+            display: block;
+            font-size: 21px;
+            margin-bottom: 17px;
+        }
+        .welcome {
+            text-decoration: underline;
+            width: auto;
+        }
+        .heading {
+            font-size: 26px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .msg{
+            font-size: 22px;
+            text-align: left;
+        }
+    }
+    .popup-cont {
+        border: 1px solid #bbb;
+        //padding: 0 30px;
+        .fieldset{
+            max-width: @warp-width;
+            margin-bottom: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 30px;
+            span{
+                text-align: left;
+                display: block;
+                margin-bottom: 10px;
+            }
+            input {
+                border-color: #bbb;
+                margin-bottom: 10px;
+                height: 42px;
+            }
+            p {
+                text-align: left;
+                color: #555;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    }
+    .popup-social{
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+        margin-top: 3px;
+        li {
+            display: inline-block;
+            width: 100%;
+            font-size: 20px;
+            //border-bottom: 1px solid #bbb;
+            padding: 10px 0;
+            margin-bottom: 0;
+            &:last-child{
+                a {
+                    border-right: none;
+                }
+            }
+            &:hover{
+                border-color: #6fc500;
+            }
+
+            a {
+                width: 100%;
+                display: block;
+                line-height: 1;
+                //border-right: 1px solid #bbb;
+                padding: 10px 0px;
+                color: #777;
+
+                margin-left: 0px;
+                margin-right: 0!important;
+                border-bottom: 2px solid #bbb;
+
+                &:last-child{
+                    span{
+                        border-right: none !important;
+                    }
+                }
+
+                &:hover{
+                    border-color: #89c540;
+
+                    svg{
+                        fill: #89c540 !important;
+                    }
+                }
+            }
+            .at-share-btn-elements{
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                align-items: center;
+                .at-share-btn{
+                    .at-icon-wrapper{
+                        float: none;
+                        border-right: 2px solid #bbb;
+                        width: calc(100% - 2px) !important;
+                        padding: 10px 0px;
+                    }
+                    &:hover{
+                        transform: translateY(0px);
+                        border-color: #89c540;
+                    }
+                    &:focus{
+                        transform: translateY(0px);
+                        border-color: #89c540;
+                    }
+                }
+            }
+        }
+    }
+    .popup-custom-submit{
+        width: 100%;
+        text-transform: capitalize;
+        margin-top: 30px;
+        max-width: @warp-width;
+        padding: 0 !important;
+        span {
+            font-weight: 600;
+            font-size: 20px;
+        }
+    }
+    
+}
+@media only screen and (min-width: 768px){
+    .without-text {
+        min-width: 600px;
+        padding-top: 140px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            position: absolute!important;
+            overflow-y: visible!important;
+            background-color: transparent!important;
+            .popup-custom-modal-wrap {
+                max-width: 600px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .popup-custom-modal-wrap {
+                width: 90%;
+                .modal-body{
+                    padding: 5px 25px 10px;
+                }
+                .popup-text{
+                    span {
+                        font-size: 17px;
+                    }
+                    .heading {
+                        font-size: 20px;
+                    }
+                    .msg {
+                        font-size: 18px;
+                    }
+                }
+                .closebtn{
+                    font-size: 13px;
+                    width: 28px;
+                    padding: 5px 0;
+                }
+            }
+            .without-text {
+                min-width: 500px;
+                padding-top: 120px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 550px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .popup-custom-modal-wrap {
+                .popup-text{
+                    span {
+                        font-size: 16px;
+                    }
+                    .heading {
+                        font-size: 18px;
+                    }
+                    .msg {
+                        font-size: 16px;
+                    }
+                }
+                .closebtn{
+                    width: 24px;
+                    padding: 2px 0;
+                }
+            }
+            .without-text {  
+                min-width: 460px;
+                width: 100%;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 479px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .popup-custom-modal-wrap {
+                padding-top: 40px;
+
+                .popup-cont{
+                    .fieldset{
+                        span{
+                            font-size: 13px;
+                        }
+                    }
+                }
+                .popup-text{
+                    span {
+                        margin-bottom: 12px;
+                    }
+                    .msg {
+                        font-size: 15px;
+                    }
+                }
+            }
+            .without-text {  
+                min-width: 410px;
+                padding-top: 100px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 420px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .popup-custom-modal-wrap {
+                padding-top: 35px;
+                .popup-cont{
+                    .fieldset{
+                        span{
+                            font-size: 12px;
+                        }
+                    }
+                }
+                .popup-text{
+                    span {
+                        margin-bottom: 8px;
+                    }
+                    .msg {
+                        font-size: 15px;
+                    }
+                }
+                .popup-social {
+                    margin-top: 0;
+                    li{
+                        padding: 7px 0;
+                    }
+                }
+                .modal-body{
+                    .closebtn {
+                        width: 19px;
+                        padding: 0;
+                    }
+                }
+            }
+            .without-text {    
+                min-width: 380px;
+                padding-top: 100px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 400px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .popup-custom-modal-wrap {
+                padding-top: 30px;
+                .popup-cont{
+                    .fieldset{
+                        span{
+                            font-size: 11px;
+                        }
+                    }
+                }
+                .popup-text{
+                    span {
+                        font-size: 15px;
+                    }
+                    .msg {
+                        font-size: 14px;
+                    }
+                }
+                .modal-body{
+                    .closebtn{
+                        width: 17px;
+
+                    }
+                }
+            }
+            .without-text {    
+                min-width: 360px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 375px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .without-text {    
+                min-width: 320px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 374px){
+    .popup-custom-modal{
+        .modal-inner-wrap {
+            .without-text {    
+                min-width: 0;
+            }
+        }
+    }
+}

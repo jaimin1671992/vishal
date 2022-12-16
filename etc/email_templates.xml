@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+	<template id="tvape_referralprogram_referralprogram_configuration_template" label="This is referral coupon email" file="referral_coupon_email.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	
+	<template id="tvape_referralprogram_referralprogram_configuration_ordertemplate" label="This is referral order after email" file="referral_order_email.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	<template id="tvape_referralprogram_referralprogram_configuration_ordertemplate_cafr" label="This is referral order after email - ca_fr" file="referral_order_email_cafr.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	<template id="tvape_referralprogram_referralprogram_configuration_ordertemplate_fr" label="This is referral order after email - fr" file="referral_order_email_fr.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	<template id="tvape_referralprogram_referralprogram_configuration_ordertemplate_de" label="This is referral order after email - de" file="referral_order_email_de.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	
+	<template id="tvape_referralprogram_referralprogram_configuration_earnedemail" label="This is referral coupon available email" file="referral_earned_email.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	
+	<template id="tvape_referralprogram_referralprogram_configuration_couponused" label="This is referral coupon used email" file="referral_earned_used_email.html" type="html" module="Tvape_ReferralProgram" area="frontend"/>
+	
+</config>

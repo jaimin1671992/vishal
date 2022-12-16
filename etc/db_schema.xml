@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="referral_code" resource="default" engine="innodb" comment="Referral Code">
+		<column xsi:type="int" name="rec_id" unsigned="true" nullable="false" identity="true" comment="Record ID"/>
+		<column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+		<column xsi:type="int" name="customer_id" comment="Customer ID"/>
+		<column xsi:type="varchar" name="referral_code" comment="Referral Code"/>
+		<column xsi:type="varchar" name="customer_email" comment="customer email"/>
+		<column xsi:type="smallint" name="code_used" unsigned="true" nullable="true" identity="false" default="0" comment="Code used times"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY"><column name="rec_id"/></constraint>
+	</table>
+	<table name="referral_used" resource="default" engine="innodb" comment="Referral Used">
+		<column xsi:type="int" name="rec_id" unsigned="true" nullable="false" identity="true" comment="Record ID"/>
+		<column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+		<column xsi:type="int" name="customer_id" comment="Customer ID"/>
+		<column xsi:type="int" name="referrer_id" comment="Referrer ID"/>
+		<column xsi:type="int" name="order_id" comment="Order Id"/>
+		<column xsi:type="varchar" name="referral_code" comment="Referral Code"/>
+		<column xsi:type="varchar" name="customer_email" comment="Customer Email"/>
+		<column xsi:type="datetime" name="used_date" nullable="true" comment="Used on Date"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY"><column name="rec_id"/></constraint>
+	</table>
+	<table name="referral_earned" resource="default" engine="innodb" comment="Referral Earned">
+		<column xsi:type="int" name="rec_id" unsigned="true" nullable="false" identity="true" comment="Record ID"/>
+		<column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+		<column xsi:type="smallint" name="is_used" unsigned="true" nullable="true" identity="false" default="0" comment="Is Used"/>
+		<column xsi:type="int" name="customer_id" comment="Customer ID"/>
+		<column xsi:type="int" name="referrer_id" comment="Referrer ID"/>
+		<column xsi:type="int" name="order_id" comment="Order Id"/>
+		<column xsi:type="int" name="used_order_id" comment="Order Id"/>
+		<column xsi:type="varchar" name="earned_code" comment="Earned Code Code"/>
+		<column xsi:type="datetime" name="used_date" nullable="true" comment="Used on Date"/>
+		<column xsi:type="datetime" name="expairary_date" nullable="true" comment="Used before Date"/>
+		<column xsi:type="varchar" name="customer_email" comment="Customer Email"/>
+		<column xsi:type="decimal" name="commission" scale="2" precision="10" default="0" comment="Commission"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY"><column name="rec_id"/></constraint>
+	</table>
+	
+	<table name="referral_quote_coupon" resource="default" engine="innodb" comment="Referral Quote Coupon">
+		<column xsi:type="int" name="rec_id" unsigned="true" nullable="false" identity="true" comment="Record ID"/>
+		<column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+		<column xsi:type="varchar" name="referral_code" comment="Referral Code"/>
+		<column xsi:type="int" name="quote_id" comment="Quote ID"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY"><column name="rec_id"/></constraint>
+	</table>
+	
+	<table name="redeem_earned_coupon" resource="default" engine="innodb" comment="Referral Quote Coupon">
+		<column xsi:type="int" name="rec_id" unsigned="true" nullable="false" identity="true" comment="Record ID"/>
+		<column xsi:type="varchar" name="redeem_code" comment="Redeem Code"/>
+		<column xsi:type="int" name="quote_id" comment="Quote ID"/>
+		<column xsi:type="int" name="is_giftcard" comment="Is Gift Card"/>
+		<column xsi:type="varchar" name="giftcard_price" comment="Gift Card Price"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY"><column name="rec_id"/></constraint>
+	</table>
+	
+	<table name="share_log" resource="default" engine="innodb" comment="Share Log">
+		<column xsi:type="int" name="rec_id" unsigned="true" nullable="false" identity="true" comment="Record ID"/>
+		<column xsi:type="int" name="customer_id" comment="Quote ID"/>
+		<column xsi:type="varchar" name="share_email" comment="Share_email"/>
+		<column xsi:type="datetime" name="rec_date" nullable="true" comment="Record Date"/>
+		<column xsi:type="smallint" name="store_id" default="0" comment="Store ID"/>
+		<column xsi:type="varchar" name="customer_email" default="" comment="Customer Email"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY"><column name="rec_id"/></constraint>
+	</table>
+	
+	<table name="quote_address" resource="default">
+        <column xsi:type="decimal"  scale="2" precision="10" name="referral_discount" default="0.00" nullable="true" comment="Referral Discount"/>
+    </table>
+
+    <table name="quote" resource="default">
+        <column xsi:type="decimal" name="referral_discount"  scale="2" precision="10" default="0.00" nullable="true" comment="Referral Discount"/>
+    </table>
+
+    <table name="sales_order" resource="default">
+        <column xsi:type="decimal" name="referral_discount"  scale="2" precision="10" default="0.00" nullable="true" comment="Referral Discount"/>
+    </table>
+
+    <table name="sales_invoice" resource="default">
+        <column xsi:type="decimal" name="referral_discount"  scale="2" precision="10" default="0.00" nullable="true" comment="Referral Discount"/>
+    </table>
+
+    <table name="sales_creditmemo" resource="default">
+        <column xsi:type="decimal" name="referral_discount"  scale="2" precision="10" default="0.00" nullable="true" comment="Referral Discount"/>
+    </table>
+	
+</schema>
