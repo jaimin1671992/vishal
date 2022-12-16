@@ -64,24 +64,11 @@ class OrderSucessAfter implements \Magento\Framework\Event\ObserverInterface
 			$this->_referralEmailHelper->sendReferralWelcomeEmail($customerId, $order->getIncrementId());
 			//$logger->info('REFERRAL EMAIL TRIGGERED');
 
-			$redeemCoupons = $this->_redeemFactory->create()->getCollection();
-			$redeemCoupons->addFieldToFilter('quote_id', $quoteId);
-			if(count($redeemCoupons)){
-				foreach($redeemCoupons as $redeemCouponObject){
-					$couponCode = $redeemCouponObject->getRedeemCode();
-					$giftcardCollections = $this->_giftcard->create()->getCollection();
-					$giftcardCollections->addFieldToFilter('customer_id', $customerId);
-					$giftcardCollections->addFieldToFilter('gift_code', $couponCode);
-					foreach($giftcardCollections as $giftcardCollection){
-						$giftcardCollection->setIsUsed(1);
-						$giftcardCollection->save();
-					}
-				}
-			}
+			
 
 			// End - Giftcard
-			$referralCode = $this->_referralProgramHelper->getReferralDiscountCode();
-			if($couponCode == $referralCode){
+
+			if($couponCode == "referral_discount_10x"){
 				
 				//$logger->info('INSIDE DISCOUNT');
 				
@@ -170,6 +157,20 @@ class OrderSucessAfter implements \Magento\Framework\Event\ObserverInterface
 						
 					}
 				}
+				$dateTime = $this->_timezoneInterface->date()->format('Y-m-d');
+				$giftcardCollections = $this->_giftcard->create()->getCollection();
+				$giftcardCollections->addFieldToFilter('gift_code', array('in'=>$usedCoupons));
+				foreach($giftcardCollections as $giftcardCollection){
+					$giftcardCollection->setIsUsed(1);
+					$giftcardCollection->setUsedOrderId($order->getId());
+					$giftcardCollection->setUsedDate($dateTime);
+					try{
+						$giftcardCollection->save();
+					}catch(Exception $e){
+						
+					}
+				}
+					
 				$redeemCoupons = $this->_redeemFactory->create()->getCollection();
 				$redeemCoupons->addFieldToFilter('redeem_code', ['in' => $usedCoupons]);
 				$redeemCoupons->addFieldToFilter('quote_id', ["neq" => $quoteId]);

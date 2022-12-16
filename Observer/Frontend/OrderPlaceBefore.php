@@ -115,7 +115,7 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
 				$giftCardCollection->addFieldToFilter('customer_email', $customerEmail);
 				$giftCardCollection->addFieldToFilter('store_id', $storeId);
 			}
-			$giftCardCollection->addFieldToFilter('is_used', ['neq'=>1]);
+			$giftCardCollection->addFieldToFilter('is_used', ['eq'=>0]);
 			foreach($giftCardCollection as $giftcardObject){
 				$availableCoupons[] = $giftcardObject->getGiftCode(); 
 			}
@@ -124,7 +124,7 @@ class OrderPlaceBefore implements \Magento\Framework\Event\ObserverInterface
 			$errorCoupons = [];
 			$redeemCoupons = $this->_redeemFactory->create()->getCollection();
 			$redeemCoupons->addFieldToFilter('quote_id', $quoteId);
-			//$logger->info("COUNT " .count($redeemCoupons));
+
 			foreach($redeemCoupons as $redeemCouponObject){
 				$couponCode = $redeemCouponObject->getRedeemCode();
 				if(!in_array($couponCode, $availableCoupons)){

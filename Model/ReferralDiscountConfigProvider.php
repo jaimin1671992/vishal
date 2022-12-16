@@ -47,8 +47,9 @@ class ReferralDiscountConfigProvider implements ConfigProviderInterface
         $ExtrafeeConfig = [];
         $enabled = $this->dataHelper->isModuleEnabled();
         $minimumOrderAmount = 0;
-        $ExtrafeeConfig['referral_discount_label'] = $this->dataHelper->getLabel();
+       
         $quote = $this->checkoutSession->getQuote();
+		$ExtrafeeConfig['referral_discount_label'] = $this->dataHelper->getLabel($quote->getId());
         $subtotal = $quote->getSubtotal();
         $ExtrafeeConfig['custom_referral_discount'] = $this->dataHelper->getReferralDiscountAmount($quote->getId());
         

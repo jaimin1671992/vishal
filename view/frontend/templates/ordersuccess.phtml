@@ -1,14 +1,15 @@
-<?php
+<?php echo 'ttt'; if($block->getUsed()<5){
 	//if($referralCode = $block->getReferralCode()){
 		$referralCode='';
 	$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
 	$referralHelper = $this->helper('Tvape\ReferralProgram\Helper\Data');
-	if($referralHelper->isModuleEnabled()){
+	
 	$orderObject = $referralHelper->getOrderFromId();
 	
 	$discountAmount = $referralHelper->getEarnedDiscountAmount();
 	$referralAmt = $referralHelper->getReferralDiscountAmt();
 	$commitionAmt = $referralHelper->getCommitionAmt();
+	$senderEmail = $referralHelper->getSenderEmail();
 ?>
 <div id="referral-response-text"></div>
 <div>
@@ -51,7 +52,7 @@
             <div class="popup-text">
 				<span class="welcome"><?php echo __('Thank you for your order ') . $block->getOrderIncrementId(); ?>!</span>
 				<span class="heading"><?php echo __('Give '.$referralAmt.', get ') . $commitionAmt; ?>!</span>
-				<span class="msg"><?php echo __('Give friends '.$referralAmt.' off their first order and you\'ll get '.$commitionAmt.' of their purchase in store credit code.'); ?></span>
+				<span class="msg"><?php echo __('Give friends '.$referralAmt.' off their first order and you\'ll get '.$commitionAmt.' of their purchase in commission.'); ?></span>
 			</div>
 			
 			<form action="<?php echo $this->getUrl('referralprogram/checkout/share'); ?>" method="post" >
@@ -69,7 +70,7 @@
 						<li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li-->
 					</ul>
 					<div class="fieldset">
-						<span><?php echo __("Email will be sent from") ?>: <?php echo $orderObject->getCustomerEmail(); ?></span>
+						<span><?php echo __("Email will be sent from") ?>: <?php echo $senderEmail; ?></span>
 						<input type="text" id="referral_email_ids" name="email_ids" value="" placeholder="To:" />
 						<!--<input type="text" name="send_seubject" value="" placeholder="Subject:" />
 						<textarea name="send_note" size="20" placeholder="Note:" ></textarea>-->
@@ -113,4 +114,13 @@
     //buttons.setAttribute('data-title', "Your friend is inviting you to get some discount. Use this referral code: <?php //echo $block->getReferralCode(); ?>//");
     buttons.setAttribute('data-title', "Hey! Get 10% OFF at https://stonersguardian.com. Use my code: \"<?php echo $block->getReferralCode(); ?>\" to get 10% off on your first purchase. Referral code must be added to the “Apply a Promo Code” field on the checkout page. T&C:");
 </script>
-	<?php } ?>
+
+<style>
+	.popup-custom-modal-wrap .popup-cont .fieldset {
+		padding: 0 30px;
+	}
+	.popup-custom-modal-wrap .popup-social li a {
+		margin-right: auto;
+	}
+</style>
+<?php } ?>

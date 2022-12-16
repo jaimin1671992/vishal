@@ -58,7 +58,7 @@ class Share extends \Magento\Framework\App\Action\Action
 		$success = false;
 		$iCounter = 0;
 		if($emailIds != "" && $order){
-			$customerEmail = $order->getCustomerEmail();
+			echo $customerEmail = $order->getCustomerEmail();
 			
 			$emailAddressArray = explode(',', $emailIds);
 			$emailAddressArray = array_unique($emailAddressArray);

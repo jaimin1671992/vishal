@@ -45,7 +45,7 @@ $appliedCoupons = $referralInformation->getAppliedCodes();
 ?>
 <div class="referral-earned-coupons">
 	<?php if(count($earnedCoupons)){ ?>
-		<h4 style="margin-bottom:5px;"><?php echo __("Referral store credit coupons") ?></h4>
+		<h4 style="margin-bottom:5px;"><?php echo __("Referral commission coupons") ?></h4>
 	<?php } ?>
 	<?php foreach($earnedCoupons as $earnedCoupon){ ?>
 		<?php $couponCode = $earnedCoupon->getEarnedCode(); ?>
@@ -66,9 +66,9 @@ $appliedCoupons = $referralInformation->getAppliedCodes();
 <?php } ?>
 
 <?php
-if($giftcardCoupons->canShowCoupons()){
+
 $earnedCoupons = $giftcardCoupons->getUnusedGiftcardCoupons();
-//$appliedCoupons = $referralInformation->getAppliedCodes();
+$appliedCoupons = $referralInformation->getAppliedCodes();
 ?>
 <div class="referral-earned-coupons">
 	<?php if(count($earnedCoupons)){ ?>
@@ -90,7 +90,7 @@ $earnedCoupons = $giftcardCoupons->getUnusedGiftcardCoupons();
 		</div>
 	<?php } ?>
 </div>
-<?php } ?>
+
 <style>
 	/*.ref_coupon {
 		background-color: #e5efe5;

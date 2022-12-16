@@ -38,7 +38,7 @@ class ReferralInformation implements ArgumentInterface
 	}
 	
 	public function canShowCoupons(){
-		if($this->_customerSession->isLoggedIn() && $this->_helper->isModuleEnabled()){
+		if($this->_customerSession->isLoggedIn() && $this->_helper->isModuleEnabled() && !$this->_helper->isFunctionOff()){
 			 return true;
 		}else{
 			return false;

@@ -84,7 +84,6 @@ class Earnedcodes extends \Magento\Framework\App\Action\Action
 			foreach($earnedCoupons as $earnedCoupon){
 				$availableCodes[] = $earnedCoupon->getEarnedCode();
 			}
-			/* CODE FOR GIFT CARD MODULE */
 			$giftCardCollection = $this->_giftcard->create()->getCollection();
 			$giftCardCollection->addFieldToFilter('customer_email', $customerEmail);
 			$giftCardCollection->addFieldToFilter('store_id', $storeId);

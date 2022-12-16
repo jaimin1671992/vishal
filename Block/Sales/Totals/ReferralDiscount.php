@@ -90,13 +90,17 @@ class ReferralDiscount extends \Magento\Framework\View\Element\Template
         $this->_order = $parent->getOrder();
         $this->_source = $parent->getSource();
        // $store = $this->getStore();
-
+		$writer = new \Laminas\Log\Writer\Stream(BP . '/var/log/___1.log');
+		$logger = new \Laminas\Log\Logger();
+		$logger->addWriter($writer);
+		$logger->info(get_class($parent));
         $referralDiscount = new \Magento\Framework\DataObject(
             [
                 'code' => 'referral_discount',
                 'strong' => false,
                 'value' => $this->_source->getReferralDiscount(),
-                'label' => $this->_dataHelper->getLabel(),
+                //'label' => $this->_dataHelper->getLabel(),
+				'label' => 'NEW TEST',
             ]
         );
 

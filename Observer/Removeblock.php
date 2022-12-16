@@ -10,13 +10,16 @@ class Removeblock implements \Magento\Framework\Event\ObserverInterface
 	
 	protected $_customerSession;
 	protected $_orderCollectionFactory;
+	protected $_referralHelper;
 	
 	public function __construct(
 		\Magento\Customer\Model\Session $customerSession,
-		\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
+		\Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+		\Tvape\ReferralProgram\Helper\Data $referralHelper
 	){
 		$this->_customerSession = $customerSession;
 		$this->_orderCollectionFactory = $orderCollectionFactory;
+		$this->_referralHelper = $referralHelper;
 	}
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -32,8 +35,10 @@ class Removeblock implements \Magento\Framework\Event\ObserverInterface
 				$isVisible = 1;
 			}
 		}
+		
+		$functionOff = $this->_referralHelper->isFunctionOff();
 
-        if($isVisible == 0){
+        if($isVisible == 0 && !$functionOff){
             $layout->unsetElement('tvape_referral_program');
         }
     }

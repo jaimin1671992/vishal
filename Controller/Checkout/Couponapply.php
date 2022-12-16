@@ -91,12 +91,6 @@ class Couponapply extends \Magento\Framework\App\Action\Action
 				$earnedCoupons->addFieldToFilter('store_id', $storeId);
 				$earnedCoupons->addFieldToFilter('is_used', ['neq'=>1]);
 				$earnedCoupons->addFieldToFilter('earned_code', $couponCode);
-				
-				/*$writer = new \Laminas\Log\Writer\Stream(BP . '/var/log/__referralprogram.log');
-				$logger = new \Laminas\Log\Logger();
-				$logger->addWriter($writer);
-				$logger->info('Your text message');
-				$logger->info((string)$earnedCoupons->getSelect());*/ 
 				if(count($earnedCoupons)){
 					$earnedModel = $earnedCoupons->getFirstItem();
 					$earnedCode = $earnedModel->getEarnedCode();
@@ -126,11 +120,10 @@ class Couponapply extends \Magento\Framework\App\Action\Action
 					}
 				}
 				
-				/* CODE ADDED FOR GIFT CARD MODULE */
 				$giftCardCollection = $this->_giftcard->create()->getCollection();
 				$giftCardCollection->addFieldToFilter('customer_email', $customerEmail);
 				$giftCardCollection->addFieldToFilter('store_id', $storeId);
-				$giftCardCollection->addFieldToFilter('is_used', ['neq'=>1]);
+				$giftCardCollection->addFieldToFilter('is_used', ['eq'=>0]);
 				$giftCardCollection->addFieldToFilter('gift_code', $couponCode);
 				
 				if(count($giftCardCollection)){
@@ -160,9 +153,14 @@ class Couponapply extends \Magento\Framework\App\Action\Action
 						
 					}
 				}
-				
 			}
 			/* END */ 
+			
+			
+			$writer = new \Laminas\Log\Writer\Stream(BP . '/var/log/__referral12.log');
+			$logger = new \Laminas\Log\Logger();
+			$logger->addWriter($writer);
+			$logger->info('Your text message');
 			
 			$referralCode = $this->_referralHelper->getReferralDiscountCode();
 			if($couponCode == $referralCode){ echo $couponCode ."invalid"; exit; }
@@ -170,7 +168,10 @@ class Couponapply extends \Magento\Framework\App\Action\Action
 			$orderCollection = $this->_orderCollectionFactory->create();
 			$orderCollection->addFieldToFilter('customer_email', $customerEmail);
 			$orderCollection->addFieldToFilter('store_id', $storeId);
+			
+
 			if(count($orderCollection)){
+				$logger->info('ORDER FOUND ');
 				echo $couponCode; exit;
 			}
 			
@@ -183,7 +184,7 @@ class Couponapply extends \Magento\Framework\App\Action\Action
 				$referralCollection->addFieldToFilter('customer_email', ['neq' => $customerEmail]);
 				$referralCollection->addFieldToFilter('store_id', $storeId);
 			}
-
+			$logger->info((string)$referralCollection->getSelect());
 			if(count($referralCollection)){
 				$referral = $referralCollection->getFirstItem();
 				if($referral->getCodeUsed() <5){

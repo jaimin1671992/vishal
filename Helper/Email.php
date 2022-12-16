@@ -66,6 +66,10 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function sendEmail($email, $customerId, $referrerEmail = "", $orderId = 0)
     {
+		if($this->_referralHelper->isFunctionOff()){
+			return;
+		}
+		
 		$storeId = $this->storeManager->getStore()->getId();
 		$websiteId = $this->storeManager->getStore()->getWebsiteId(); 
 		$referralCollection = $this->referralFactory->create()->getCollection();
@@ -108,12 +112,11 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
 			if($order){
 				$customerName = $order->getCustomerName();
 			}*/
-			/*$order = $this->_orderinterface->load($orderId);
-			if($order->getCustomerId() > 0){
+			/*if($order->getCustomerId() > 0){
 				$customerObject = $this->customerRepositoryInterface->getById($order->getCustomerId());
-				$customerName = $customerName = $customerObject->getName();
 			}*/
 		}
+		echo $customerName;
 
 		$comAmt = $this->_referralHelper->getCommitionAmt();
 		$refAmt = $this->_referralHelper->getReferralDiscountAmt();
@@ -163,6 +166,9 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
 	}
 	
 	public function sendReferralWelcomeEmail($customerId, $orderId){
+		if($this->_referralHelper->isFunctionOff()){
+			return;
+		}
 		$storeId = $this->storeManager->getStore()->getId();
 		
 		
@@ -261,6 +267,11 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
 	}
 	
 	public function sendEarnedCouponEmail($orderId){
+		
+		if($this->_referralHelper->isFunctionOff()){
+			return;
+		}
+		
 		$storeId = $this->storeManager->getStore()->getId();
 		$order = $this->_orderinterface->load($orderId);
 		//$customerId = $order->getCustomerId();

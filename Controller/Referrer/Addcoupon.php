@@ -58,7 +58,7 @@ class Addcoupon extends \Magento\Framework\App\Action\Action
 				}
 				$subtotal = $quote->getSubtotalWithDiscount();
 				if($subtotal <= $commission){
-					$this->_messageManager->addError(__("Store Credit Code Discount is greater than total."));
+					$this->_messageManager->addError(__("Commission Discount is graterthan total."));
 				}else{
 					$redeemCollection = $this->_redeemFactory->create()->getCollection();
 					$redeemCollection->addFieldToFilter('redeem_code', $redeemCode);
@@ -72,7 +72,7 @@ class Addcoupon extends \Magento\Framework\App\Action\Action
 					$redeemCodeObject->setQuoteId($quoteId);
 					try{
 						$redeemCodeObject->save();
-						$this->messageManager->addSuccess(__("Store credit code is applied."));
+						$this->messageManager->addSuccess(__("Commission code is applied."));
 					}catch(Exception $e){
 						$this->_messageManager->addError(__("Something went wrong. Please try again."));
 					}
@@ -82,7 +82,7 @@ class Addcoupon extends \Magento\Framework\App\Action\Action
 				$giftcardCollections = $this->_giftcard->create()->getCollection();
 				$giftcardCollections->addFieldToFilter('customer_id', $customerId);
 				$giftcardCollections->addFieldToFilter('gift_code', $params['redeem_code']);
-				$giftcardCollections->addFieldToFilter('is_used', ['neq' => 1]);
+				$giftcardCollections->addFieldToFilter('is_used', ['eq' => 0]);
 				if(count($giftcardCollections)){
 					$redeemCollection = $this->_redeemFactory->create()->getCollection();
 					$redeemCollection->addFieldToFilter('redeem_code', $redeemCode);
@@ -105,7 +105,7 @@ class Addcoupon extends \Magento\Framework\App\Action\Action
 					}
 				}
 			}else{
-				$this->messageManager->addError(__("Store credit code is not matched."));
+				$this->messageManager->addError(__("Commission code is not matched."));
 			}
 		}else{
 			$this->_messageManager->addError(__("Something went wrong. Please try again."));

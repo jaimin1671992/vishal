@@ -62,14 +62,11 @@ class ReferralDiscount extends \Magento\Quote\Model\Quote\Address\Total\Abstract
         $minimumOrderAmount = 0;
         $subtotal = $quote->getSubtotal();
         $referralDiscount = $quote->getReferralDiscount();
-		$title = __("Referral Discount");
-		if($this->helperData->hasGiftDiscount()){
-			$title = __("Other Discounts");
-		}
-        if ($enabled && $minimumOrderAmount <= $subtotal && $referralDiscount) {
+		
+        if ($enabled && $minimumOrderAmount <= $subtotal && $referralDiscount && $referralDiscount > 0) {
             return [
                 'code' => 'referral_discount',
-                'title' => 'Referral Discount',
+                'title' => $this->getLabel($quote),
                 'value' => $referralDiscount
             ];
         } else {
@@ -82,8 +79,11 @@ class ReferralDiscount extends \Magento\Quote\Model\Quote\Address\Total\Abstract
      *
      * @return \Magento\Framework\Phrase
      */
-    public function getLabel()
+    public function getLabel($quote = null)
     {
+		if($quote && $this->helperData->hasGiftDiscount($quote->getId())){
+			return __("Other Discounts");
+		}
         return __('Referral Discount');
     }
 

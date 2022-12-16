@@ -7,6 +7,7 @@
 	$commitionAmt = $helper->getCommitionAmt();
 	$earnedCode = '';
 	$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+	$senderEmail = $helper->getSenderEmail();
 	
 	//echo "TEST->".$helper->getReferralDiscountCode();
 	
@@ -17,6 +18,9 @@
 		<strong><?php /*echo __("Referral Program")*/ ?></strong>
 	</div>-->
 	<div class="block-content">
+			<div class="refer-earn-block">
+				<img src="<?= $block->getViewFileUrl('../images/Referral-Program-Infographic.jpg') ?>" alt="Referral Program"/>
+			</div>
 		<div class="box box-information">
 			<?php /* <strong class="box-title"><?php echo __("Referral Information") ?></strong> */ ?>
 			<?php if($block->isEnrolled()){ ?>
@@ -24,6 +28,7 @@
 					<?php echo __("Referral code") ?> : <strong><?php echo $block->getReferralCode(); ?></strong>
 					<a href="#" id="open_share_popup"><?php echo __("Share") ?></a>
 				</p>
+				
 				<p><?php echo __("Referral code used %1/5 times", $block->getUsed() ) ?></p>
 				<?php /* <p><?php echo __("Referral Code can be used 5 times max") ?></p> */ ?>
 			<?php } else { ?>
@@ -41,7 +46,7 @@
 	<?php if(count($earnedCoupons)){ ?>
 	<div class="block block-dashboard-orders">
 		<div class="block-title order">
-			<strong><?php echo __("Earned store credit code") ?></strong>
+			<strong><?php echo __("Earned commission") ?></strong>
 		</div>
 		<div class="block-content">
 			<div class="table-wrapper orders-recent">
@@ -52,7 +57,7 @@
 							<th scope="col" class="col "><?php echo __("Date") ?></th>
 							<!--<th scope="col" class="col "><?php echo __("Order by") ?></th>-->
 							<th scope="col" class="col "><?php echo __("Discount code") ?></th>
-							<th scope="col" class="col "><?php echo __("Store credit code") ?></th>
+							<th scope="col" class="col "><?php echo __("Commission") ?></th>
 							<th scope="col" class="col "><?php echo __("Use before") ?></th>
 							<th scope="col" class="col "><?php echo __("Is used") ?></th>
 						</tr>
@@ -127,7 +132,7 @@
 							<li><a href="https://twitter.com/intent/tweet?url=https://stonersguardian.com&text=<?php echo $block->getReferralCode(); ?>&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false" title="Twitter"><i class="fa fa-twitter"></i></a></li> */ ?>
 						</ul>
 						<div class="fieldset">
-							<p><b><?php echo __("Email will be sent from:") ." " . $block->getCustomerEmail(); ?></b></p>
+							<p><b><?php echo __("Email will be sent from:") ." " . $senderEmail; ?></b></p>
 							<textarea name="email_ids"  value="" placeholder="<?php echo __("Email Addresses") ?>:" ></textarea>
 							<p><?php echo __("Email addresses comma separated.") ?></p>
 						</div>
@@ -169,3 +174,11 @@ const buttons = document.querySelector('.addthis_inline_share_toolbox')
 buttons.setAttribute('data-url','https://stonersguardian.com/shipping');
 buttons.setAttribute('data-title', "Your friend is inviting you to get some discount. Use this referral code: <?php echo $block->getReferralCode(); ?>");
 </script> */ ?>
+<style>
+	.popup-custom-modal-wrap .popup-cont .fieldset {
+		padding: 0 30px;
+	}
+	.popup-custom-modal-wrap .popup-social li a {
+		margin-right: auto;
+	}
+</style>

@@ -54,7 +54,7 @@ class Removecoupon extends \Magento\Framework\App\Action\Action
 					$redeemCodeObject = $redeemCollection->getFirstItem();
 				try{
 					$redeemCodeObject->delete();
-					$this->messageManager->addSuccess(__("Store credit code is removed."));
+					$this->messageManager->addSuccess(__("Commission code is removed."));
 				}catch(Exception $e){
 					$this->_messageManager->addError(__("Something went wrong. Please try again."));
 				}

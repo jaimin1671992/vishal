@@ -63,20 +63,7 @@ class OrderPlaceAfter implements \Magento\Framework\Event\ObserverInterface
 
 		// Set Gift Card Coupon is_used = 1
 
-		$redeemCoupons = $this->_redeemFactory->create()->getCollection();
-		$redeemCoupons->addFieldToFilter('quote_id', $quoteId);
-		if(count($redeemCoupons)){
-			foreach($redeemCoupons as $redeemCouponObject){
-				$couponCode = $redeemCouponObject->getRedeemCode();
-				$giftcardCollections = $this->_giftcard->create()->getCollection();
-				$giftcardCollections->addFieldToFilter('customer_id', $customerId);
-				$giftcardCollections->addFieldToFilter('gift_code', $couponCode);
-				foreach($giftcardCollections as $giftcardCollection){
-					$giftcardCollection->setIsUsed(1);
-					$giftcardCollection->save();
-				}
-			}
-		}
+		
 
 		// End - Giftcard
 		
@@ -197,6 +184,22 @@ class OrderPlaceAfter implements \Magento\Framework\Event\ObserverInterface
 					
 				}
 			}
+			
+			$dateTime = $this->_timezoneInterface->date()->format('Y-m-d');
+			$giftcardCollections = $this->_giftcard->create()->getCollection();
+			//$giftcardCollections->addFieldToFilter('customer_id', $customerId);
+			$giftcardCollections->addFieldToFilter('gift_code', ['in' => $usedCoupons]);
+			foreach($giftcardCollections as $giftcardCollection){
+				$giftcardCollection->setIsUsed(1);
+				$giftcardCollection->setUsedOrderId($order->getId());
+				$giftcardCollection->setUsedDate($dateTime);
+				try{
+					$giftcardCollection->save();
+				}catch(Exception $e){
+					
+				}
+			}
+			
 			$redeemCoupons = $this->_redeemFactory->create()->getCollection();
 			$redeemCoupons->addFieldToFilter('redeem_code', ['in' => $usedCoupons]);
 			$redeemCoupons->addFieldToFilter('quote_id', ["neq" => $quoteId]);

@@ -1,18 +1,29 @@
-<!--@subject {{trans "%customerName invited you to get %refAmt off on Tvape" customerName=$customerName refAmt=$refAmt}} @-->
+<!--@subject {{var customerName}} invited you to get {{var refAmt}} off on Tvape @-->
 {{template config_path="design/email/header_template"}}
 <table>
 
 	<tr>
-		<td style="padding: 10px 0;">{{trans 'Hey! Get 10% OFF at <a style="color: #6fc500;" href="%baseUrl">Tvape</a>, use my referral code <b>%templateVar</b> to get %refAmt off on your first purchase. Referral code must be added to the “Apply a Promo Code” field on the checkout page.' baseUrl=$baseUrl templateVar=$templateVar refAmt=$refAmt |raw}}</td>
-	</tr>
-	<tr>
-		<td style="padding: 5px 0 0;"><b>{{trans "Referral Code:"}}</b> {{var templateVar}}</td>
+		<td style="padding: 10px 0;">Hey! Get 10% OFF at <a style="color: #6fc500;" href="{{config path="web/secure/base_url"}}">Tvape</a>, use my referral code <b>{{var templateVar}}</b> to get {{var refAmt}} off on your first purchase. Referral code must be added to the “Apply a Promo Code” field on the checkout page.<!--p>T&C: <a style="color: #006400;margin-top: 5px;" href="{{config path="web/secure/base_url"}}referral-program">{{config path="web/secure/base_url"}}referral-program</a></p--></td>
 	</tr>
 	<tr>
 		<td style="padding: 10px 0;">
-			<a style="color: #6fc500;" href="{{config path="web/secure/base_url"}}referral-program/">{{trans "Terms & Conditions"}}</a>
+			<a style="color: #6fc500;" href="{{config path="web/secure/base_url"}}referral-program">Terms & Conditions</a>
 		</td>
 	</tr>
+	<!--<tr>
+		<td style="padding: 5px 0;">{{trans "Your Friend %customerName referred you" customerName=$customerName}}.</td>
+	</tr>
+	<tr>
+		<td style="padding: 5px 0;">Referral code must be added to the "Apply a Promo Code" field<br>on the checkout page of the website to receive the {{var refAmt}} discount.</td>
+	</tr>-->
+	<tr>
+		<td style="padding: 5px 0 0;"><b>Referral Code:</b> {{var templateVar}}</td>
+	</tr>
+	<!--tr style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+		<td style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+			<a style="color: #006400;margin-top: 5px;display: block;" href="{{config path="web/secure/base_url"}}referral-program">Terms & Conditions</a>
+		</td>
+	</tr-->
 </table>
 </td>
 </tr>
@@ -20,3 +31,11 @@
 	{{template config_path="design/email/footer_template"}}
 </tr>
 </table>
+<style>
+	.maintable{
+		background-color: white;
+	}
+	.main{
+		border: 1px solid #eee;
+	}
+</style>

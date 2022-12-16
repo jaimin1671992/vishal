@@ -55,16 +55,16 @@ define([
 	var earnedRemove = url.build('referralprogram/checkout/earnedremove');
 	var referralCoupons = {};
 	
-	
-	$.ajax({
-		url: referralCouponCheck,
-		type: "POST",
-		//data: {'quote_id':quote.getQuoteId()}, 
-	}).done(function (data) {
-		//console.log(data);
-		referralCode(data);
-	});
-	
+	if(window.referralenabled == false){
+		$.ajax({
+			url: referralCouponCheck,
+			type: "POST",
+			//data: {'quote_id':quote.getQuoteId()}, 
+		}).done(function (data) {
+			//console.log(data);
+			referralCode(data);
+		});
+	}
 	//console.log(referralCode);
 
     if (totals()) {
@@ -95,15 +95,14 @@ define([
          * Coupon code application procedure
          */
         apply: function () {
-			var discountMixin = this; 
-			if(window.referralenabled == false){
+			/*if(window.referralenabled == false){
 				if (discountMixin.validate()) {
 					setCouponCodeAction(couponCode(), isApplied);
 				}
 				return;
-			}
+			}*/
 			var preCoupon = couponCode();
-			
+			var discountMixin = this;
 			var customerEmail = "";
 			if($('#customer-email') != "undefined")
 				customerEmail = $('#customer-email').val();
@@ -116,7 +115,7 @@ define([
 					
 					var dataArray = data.split(',');
 					if(data == "commission error"){
-						var message = $t('Store credit code discount is graterthan total.');
+						var message = $t('Commission Discount is graterthan total.');
 						messageContainer.addErrorMessage({
 							'message': message
 						});

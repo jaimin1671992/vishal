@@ -14,6 +14,7 @@ class Data extends AbstractHelper
 	protected $_pricingHelper;
 	protected $_quoteFactory;
 	protected $_orderFactory;
+	protected $storeManager;
 	
 	public function __construct(
 		\Magento\Checkout\Model\Session $checkoutSession,
@@ -23,7 +24,8 @@ class Data extends AbstractHelper
 		\Magento\SalesRule\Model\RuleFactory $ruleFactory,
 		\Magento\Framework\Pricing\Helper\Data $pricingHelper,
 		\Magento\Quote\Model\QuoteFactory $quoteFactory,
-		\Magento\Sales\Model\OrderFactory $orderFactory
+		\Magento\Sales\Model\OrderFactory $orderFactory,
+		\Magento\Store\Model\StoreManagerInterface $storeManager
 	){
 		$this->_checkoutSession = $checkoutSession;
 		$this->_redeemFactory = $redeemFactory;
@@ -33,6 +35,7 @@ class Data extends AbstractHelper
 		$this->_pricingHelper = $pricingHelper;
 		$this->_quoteFactory = $quoteFactory;
 		$this->_orderFactory = $orderFactory;
+		$this->storeManager = $storeManager;
 	}
 	
 	public function getRandomStrings($length)
@@ -56,7 +59,7 @@ class Data extends AbstractHelper
 	}
 	
 	public function getReferralRuleId(){
-		return 644;
+		return 558;
 	}
 	
 	public function getReferralDiscountAmt(){
@@ -71,6 +74,15 @@ class Data extends AbstractHelper
 			return $referralAmount . "%";
 		}
 		return $referralAmount;
+	}
+
+	public function getSenderEmail(){
+		$storeId = $this->storeManager->getStore()->getId();
+		$customerEmail = "noreply@torontovaporizer.ca";
+		if($storeId == 3){
+			$customerEmail = "noreply@tvape.com";
+		}
+		return $customerEmail;
 	}
 	
 	public function getCommitionAmt(){
@@ -113,6 +125,13 @@ class Data extends AbstractHelper
 		//return true;
 		$storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
         return $this->_scopeConfig->getValue("tvape_referralprogram/referralprogram_configuration/active", $storeScope);
+    }
+	
+	public function isFunctionOff()
+    {
+		//return true;
+		$storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+        return $this->_scopeConfig->getValue("tvape_referralprogram/referralprogram_configuration/function_off", $storeScope);
     }
 	
 	public function getEarnedDiscountAmount(){
@@ -206,9 +225,9 @@ class Data extends AbstractHelper
      *
      * @return mixed
      */
-    public function getLabel()
+    public function getLabel($quoteId = null)
     {
-		if($this->hasGiftDiscount()){
+		if($this->hasGiftDiscount($quoteId)){
 			return __("Other Discounts");
 		}else{
 			return __("Referral Discount");

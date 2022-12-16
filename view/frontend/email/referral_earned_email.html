@@ -1,9 +1,9 @@
-<!--@subject {{trans "Your Referral Store Credit Code Has Arrived"}} 💸  @-->
+<!--@subject {{trans "Your Referral Commission Has Arrived"}} 💸 @-->
 {{template config_path="design/email/header_template"}}
 <table>
 
 	<tr>
-		<td style="padding: 10px 5px;font-size: 18px;">{{trans "Hey!}}</td>
+		<td style="padding: 10px 5px;font-size: 18px;">{{trans "Hey!"}}</td>
 	</tr>
 	<tr>
 		<td style="padding: 5px;">
@@ -15,26 +15,23 @@
 	</tr>
 	<tr>
 		<td style="padding: 5px;">
-			<p style="font-size: 16px;margin-bottom: 0;">{{trans "Your Store Credit Code:"}} <b>{{var	 templateVar}}</b></p>
-			<p style="font-size: 16px;margin-bottom: 0;">{{trans "Your Store Credit Code Amount:"}} <b>{{var commission}}</b></p>
-			<!--div class="code">
-				<span style="font-weight: 600;font-size: 16px;">{{var templateVar}}</span>
-			</div-->
+			<p style="font-size: 16px;margin-bottom: 0;">{{trans "Your Commission Code:"}} <b>{{var	 templateVar}}</b></p>
+			<p style="font-size: 16px;margin-bottom: 0;">{{trans "Your Commission Amount:"}} <b>{{var commission}}</b></p>
 			<br>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<ul style="padding-left: 5px;text-align: justify;list-style-position: inside;">
-				<li>{{trans "Your earned store credit code will be available under the “My Account-> My Referral Program” section."}}</li>
-				<li>{{trans "The earned store credit code must be used on the checkout page, on the “Apply a Promo Code” field using the coupon code. Store credit code can be combined with other discounts."}}</li>
-				<li>{{trans "Earned store credit code must be used within one year of the date that you received it."}}</li>
+				<li>{{trans "Your earned commission will be available under the “My Account-> My Referral Program” section."}}</li>
+				<li>{{trans "The earned commission code must be used on the checkout page, on the “Apply a Promo Code” field using the coupon code. Commission can be combined with other discounts."}}</li>
+				<li>{{trans "Earned commission must be used within one year of the date that you received it."}}</li>
 			</ul>
 		</td>
 	</tr>
 	<tr>
 		<td style="padding: 10px 5px;">
-			<a style="color: #6fc500;" href="{{config path="web/secure/base_url"}}referral-program">{{trans "Terms & Conditions"}}</a>
+			<a style="color: #6fc500;" href="{{config path="web/secure/base_url"}}referral-program">{{trans "Terms & Conditions}}</a>
 		</td>
 	</tr>
 </table>
